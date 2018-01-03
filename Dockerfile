@@ -189,4 +189,4 @@ RUN chmod 777 /var/log
 VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
 
 CMD ["/bin/bash", "/start.sh"]
-RUN mkdir -p /var/log/supervisor && chmod 777 /var/log/supervisor
+RUN chmod 777 /var/log/supervisor
