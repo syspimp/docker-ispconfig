@@ -190,3 +190,4 @@ VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/l
 
 CMD ["/bin/bash", "/start.sh"]
 RUN chmod 777 /var/log/supervisor
+RUN touch /var/log/supervisor/supervisord.log && chmod 777 /var/log/supervisor/supervisord.log
