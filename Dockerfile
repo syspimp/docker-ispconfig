@@ -183,8 +183,11 @@ RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
 RUN service mysql restart && mysql -ppass < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
 # Directory for dump SQL backup
 RUN mkdir -p /var/backup/sql
+RUN chmod 777 /var/log
 #RUN freshclam
 
 VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
 
 CMD ["/bin/bash", "/start.sh"]
+RUN chmod 777 /var/log/supervisor
+RUN touch /var/log/supervisor/supervisord.log && chmod 777 /var/log/supervisor/supervisord.log
