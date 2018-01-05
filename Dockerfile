@@ -168,25 +168,24 @@ EXPOSE 20 21 22 53 80 443 953 8080 30000 30001 30002 30003 30004 30005 30006 300
 ADD ./supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./etc/cron.daily/sql_backup.sh /etc/cron.daily/sql_backup.sh
 ADD ./autoinstall.ini /tmp/ispconfig3_install/install/autoinstall.ini
-RUN mkdir -p /var/run/sshd
-RUN mkdir -p /var/log/supervisor
-RUN mv /bin/systemctl /bin/systemctloriginal
 ADD ./bin/systemctl /bin/systemctl
-RUN chmod 755 /bin/systemctl
-RUN sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_install/install/autoinstall.ini
-# RUN mysqladmin -u root password pass
-RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
-RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
-RUN service mysql restart && mysql -ppass < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
-# Directory for dump SQL backup
-ADD ./start.sh /start.sh
-RUN mkdir -p /var/backup/sql && \
+RUN mkdir -p /var/run/sshd && \
+mkdir -p /var/log/supervisor && \
+mv /bin/systemctl /bin/systemctloriginal && \
+chmod 755 /bin/systemctl && \
+sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_install/install/autoinstall.ini && \
+service mysql restart && \
+php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini && \
+cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/ && \
+service mysql restart && mysql -ppass < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql && \
+mkdir -p /var/backup/sql && \
 touch /var/log/supervisor/supervisord.log && \
 chmod 777 /var/log && \
 chmod 777 /var/log/supervisor && \
-chmod 666 /var/log/supervisor/supervisord.log && \
-chmod 755 /start.sh
+chmod 666 /var/log/supervisor/supervisord.log
 #RUN freshclam
+ADD ./start.sh /start.sh
+RUN chmod 755 /start.sh
 VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
 CMD ["/bin/bash", "/start.sh"]
