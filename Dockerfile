@@ -188,4 +188,5 @@ chmod 666 /var/log/supervisor/supervisord.log
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
 VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
-CMD ["/bin/bash", "/start.sh"]
+#CMD ["/bin/bash", "/start.sh"]
+CMD ["/bin/bash"]
