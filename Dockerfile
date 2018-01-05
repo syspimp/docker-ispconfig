@@ -168,7 +168,6 @@ EXPOSE 20 21 22 53 80 443 953 8080 30000 30001 30002 30003 30004 30005 30006 300
 ADD ./supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./etc/cron.daily/sql_backup.sh /etc/cron.daily/sql_backup.sh
 ADD ./autoinstall.ini /tmp/ispconfig3_install/install/autoinstall.ini
-RUN chmod 755 /start.sh
 RUN mkdir -p /var/run/sshd
 RUN mkdir -p /var/log/supervisor
 RUN mv /bin/systemctl /bin/systemctloriginal
@@ -181,13 +180,13 @@ ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
 RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
 RUN service mysql restart && mysql -ppass < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
 # Directory for dump SQL backup
-RUN mkdir -p /var/backup/sql
-RUN chmod 777 /var/log
-#RUN freshclam
-
-VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
-
-CMD ["/bin/bash", "/start.sh"]
-RUN chmod 777 /var/log/supervisor
-RUN touch /var/log/supervisor/supervisord.log && chmod 777 /var/log/supervisor/supervisord.log
 ADD ./start.sh /start.sh
+RUN mkdir -p /var/backup/sql && \
+touch /var/log/supervisor/supervisord.log && \
+chmod 777 /var/log && \
+chmod 777 /var/log/supervisor && \
+chmod 666 /var/log/supervisor/supervisord.log && \
+chmod 755 /start.sh
+#RUN freshclam
+VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
+CMD ["/bin/bash", "/start.sh"]
