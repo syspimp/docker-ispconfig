@@ -172,8 +172,8 @@ ADD ./bin/systemctl /bin/systemctl
 ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
 RUN mkdir -p /var/run/sshd && \
 mkdir -p /var/log/supervisor && \
-mv /bin/systemctl /bin/systemctloriginal && \
 chmod 755 /bin/systemctl && \
+mv /bin/systemctl /bin/systemctloriginal && \
 sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_install/install/autoinstall.ini && \
 service mysql restart && \
 php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini && \
