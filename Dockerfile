@@ -189,5 +189,7 @@ ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
 VOLUME ["/copy/var/www/","/copy/var/mail/","/copy/var/backup/","/copy/var/lib/mysql","/copy/etc/","/copy/usr/local/ispconfig","/copy/var/log/"]
 #CMD ["/bin/bash", "/start.sh"]
-RUN echo web hook with tail && mkdir -p /copy
+RUN echo web hook with tail && \
+mkdir -p /copy && \
+chmod 4755 /usr/lib/apache2/suexec
 CMD ["tail", "-f", "/dev/null"]
