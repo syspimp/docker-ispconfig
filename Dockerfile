@@ -199,5 +199,5 @@ sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' 
 echo "export VISIBLE=now" >> /etc/profile
 ENV NOTVISIBLE "in users profile"
 CMD ["/usr/sbin/sshd", "-D"]
-RUN rm -f /etc/ssh/ssh_host_ecdsa_key && ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa && \
-sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config
+RUN sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
+systemctl start sshd.service
