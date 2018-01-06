@@ -200,4 +200,4 @@ echo "export VISIBLE=now" >> /etc/profile
 ENV NOTVISIBLE "in users profile"
 CMD ["/usr/sbin/sshd", "-D"]
 RUN sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
-systemctl start sshd.service
+systemctl start ssh
