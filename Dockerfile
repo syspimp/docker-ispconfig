@@ -189,5 +189,5 @@ ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
 VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
 #CMD ["/bin/bash", "/start.sh"]
-RUN echo web hook with tail
+RUN echo web hook with tail && mkdir -p /copy
 CMD ["tail", "-f", "/dev/null"]
