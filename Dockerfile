@@ -193,6 +193,9 @@ RUN echo web hook with tail && \
 mkdir -p /copy && \
 chmod 4755 /usr/lib/apache2/suexec && \
 echo "root:redhat123" | chpasswd && \
-useradd cloud-user && \
-echo -e "cloud-user:redhat123" | chpasswd
+mkdir -p /var/run/sshd  && \
+sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
+echo "export VISIBLE=now" >> /etc/profile
+ENV NOTVISIBLE "in users profile"
 CMD ["/usr/bin/sshd", "-d"]
