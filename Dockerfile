@@ -199,3 +199,4 @@ sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' 
 echo "export VISIBLE=now" >> /etc/profile
 ENV NOTVISIBLE "in users profile"
 CMD ["/usr/sbin/sshd", "-D"]
+RUN /usr/bin/ssh-keygen -A
