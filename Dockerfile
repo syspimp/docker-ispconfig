@@ -199,4 +199,4 @@ sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' 
 echo "export VISIBLE=now" >> /etc/profile
 ENV NOTVISIBLE "in users profile"
 CMD ["/usr/sbin/sshd", "-D"]
-RUN ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key -N 
+RUN ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
