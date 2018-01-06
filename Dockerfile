@@ -192,7 +192,7 @@ VOLUME ["/copy/var/www/","/copy/var/mail/","/copy/var/backup/","/copy/var/lib/my
 RUN echo web hook with tail && \
 mkdir -p /copy && \
 chmod 4755 /usr/lib/apache2/suexec && \
-echo -e "redhat123\nredhat123" | passwd root && \
+echo "root:redhat123" | chpasswd && \
 useradd cloud-user && \
-echo -e "redhat123\nredhat123" | passwd cloud-user
+echo -e "cloud-user:redhat123" | chpasswd
 CMD ["/usr/bin/sshd", "-d"]
