@@ -187,7 +187,7 @@ chmod 666 /var/log/supervisor/supervisord.log
 #RUN freshclam
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
-VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
+VOLUME ["/copy/var/www/","/copy/var/mail/","/copy/var/backup/","/copy/var/lib/mysql","/copy/etc/","/copy/usr/local/ispconfig","/copy/var/log/"]
 #CMD ["/bin/bash", "/start.sh"]
 RUN echo web hook with tail && mkdir -p /copy
 CMD ["tail", "-f", "/dev/null"]
