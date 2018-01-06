@@ -198,6 +198,6 @@ sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_
 sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
 echo "export VISIBLE=now" >> /etc/profile
 ENV NOTVISIBLE "in users profile"
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["tail", "-f", "/dev/null"]
 RUN sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
 systemctl start ssh
