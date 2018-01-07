@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # DOCKERPASS=$(openssl rand -base64 32)
 # echo "ROOT password : $DOCKERPASS"
 # echo "root:pass"|chpasswd
@@ -24,4 +24,4 @@ if [ ! -f /usr/local/ispconfig/interface/lib/config.inc.php ]; then
 	php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 	killall apache2
 fi
-exec /usr/sbin/sshd -D
+/usr/sbin/sshd -D
