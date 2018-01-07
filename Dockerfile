@@ -185,10 +185,7 @@ chmod 777 /var/log && \
 chmod 777 /var/log/supervisor && \
 chmod 666 /var/log/supervisor/supervisord.log
 #RUN freshclam
-ADD ./start.sh /start.sh
-RUN chmod 755 /start.sh
 VOLUME ["/copy/var/www/","/copy/var/mail/","/copy/var/backup/","/copy/var/lib/mysql","/copy/etc/","/copy/usr/local/ispconfig","/copy/var/log/"]
-#CMD ["/bin/bash", "/start.sh"]
 RUN echo web hook with tail && \
 mkdir -p /copy && \
 chmod 4755 /usr/lib/apache2/suexec && \
@@ -196,8 +193,11 @@ echo "root:redhat123" | chpasswd && \
 mkdir -p /var/run/sshd  && \
 sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
 sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
-echo "export VISIBLE=now" >> /etc/profile
-ENV NOTVISIBLE "in users profile"
-CMD ["tail", "-f", "/dev/null"]
-RUN sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
+echo "export VISIBLE=now" >> /etc/profile && \
+sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
 systemctl start ssh
+ENV NOTVISIBLE "in users profile"
+ADD ./start.sh /start.sh
+#CMD ["tail", "-f", "/dev/null"]
+RUN chmod 755 /start.sh
+CMD ["/bin/bash", "/start.sh"]
