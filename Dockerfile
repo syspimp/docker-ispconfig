@@ -199,5 +199,5 @@ systemctl start ssh
 ENV NOTVISIBLE "in users profile"
 ADD ./start.sh /start.sh
 #CMD ["tail", "-f", "/dev/null"]
-RUN chmod 755 /start.sh
 CMD ["/bin/bash", "/start.sh"]
+RUN chmod 755 /start.sh
