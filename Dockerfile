@@ -183,10 +183,7 @@ mkdir -p /var/backup/sql && \
 touch /var/log/supervisor/supervisord.log && \
 chmod 777 /var/log && \
 chmod 777 /var/log/supervisor && \
-chmod 666 /var/log/supervisor/supervisord.log
-#RUN freshclam
-VOLUME ["/copy/var/www/","/copy/var/mail/","/copy/var/backup/","/copy/var/lib/mysql","/copy/etc/","/copy/usr/local/ispconfig","/copy/var/log/"]
-RUN echo web hook with tail && \
+chmod 666 /var/log/supervisor/supervisord.log && \
 mkdir -p /copy && \
 chmod 4755 /usr/lib/apache2/suexec && \
 echo "root:redhat123" | chpasswd && \
@@ -201,3 +198,4 @@ ADD ./start.sh /start.sh
 #CMD ["tail", "-f", "/dev/null"]
 RUN chmod 755 /start.sh
 CMD ["/bin/bash", "/start.sh"]
+#VOLUME ["/copy/var/www/","/copy/var/mail/","/copy/var/backup/","/copy/var/lib/mysql","/copy/etc/","/copy/usr/local/ispconfig","/copy/var/log/"]
