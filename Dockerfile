@@ -199,3 +199,4 @@ ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
 CMD ["/bin/bash", "/start.sh"]
 #VOLUME ["/copy/var/www/","/copy/var/mail/","/copy/var/backup/","/copy/var/lib/mysql","/copy/etc/","/copy/usr/local/ispconfig","/copy/var/log/"]
+RUN echo
